@@ -5,6 +5,7 @@ import com.und.security.filter.RestAuthenticationEntryPoint
 import com.und.security.filter.RestAuthenticationTokenFilter
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
@@ -24,6 +25,7 @@ import org.springframework.security.config.BeanIds
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@ComponentScan("com.und")
 class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 
     @Autowired
@@ -41,15 +43,11 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     }
 
     @Bean
-    fun passwordEncoder(): PasswordEncoder {
-        return BCryptPasswordEncoder()
-    }
+    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
 
     @Bean
     @Throws(Exception::class)
-    fun authenticationTokenFilterBean(): RestAuthenticationTokenFilter {
-        return RestAuthenticationTokenFilter()
-    }
+    fun authenticationTokenFilterBean(): RestAuthenticationTokenFilter = RestAuthenticationTokenFilter()
 
     @Throws(Exception::class)
     override fun configure(httpSecurity: HttpSecurity) {
@@ -94,9 +92,8 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
         httpSecurity.headers().cacheControl()
     }
 
+
     @Bean(name = arrayOf(BeanIds.AUTHENTICATION_MANAGER))
     @Throws(Exception::class)
-    override fun authenticationManagerBean(): AuthenticationManager {
-        return super.authenticationManagerBean()
-    }
+    override fun authenticationManagerBean(): AuthenticationManager = super.authenticationManagerBean()
 }
