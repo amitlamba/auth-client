@@ -14,6 +14,7 @@ class UndUserDetailsDeSerializationTest {
 
         val json = """
  {
+        "id":1234,
       "username": "shiv6@und.com",
       "authorities": [
         {

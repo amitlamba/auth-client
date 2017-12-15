@@ -17,7 +17,7 @@ import java.io.IOException
 /**
  * Created by shiv on 21/07/17.
  */
-@JsonDeserialize(using=UndUserDeserilaizer::class)
+@JsonDeserialize(using = UndUserDeserilaizer::class)
 class UndUserDetails(
         @get:JsonIgnore
         val id: Long?,
@@ -70,7 +70,7 @@ class UndUserDetails(
         return password
     }
 
-   //@JsonSerialize(using = StringToAuthoritySerializer::class)
+    //@JsonSerialize(using = StringToAuthoritySerializer::class)
     override fun getAuthorities(): Collection<GrantedAuthority> {
         return authorities
     }
@@ -86,7 +86,7 @@ class StringToAuthorityDeSerializer : JsonDeserializer<List<GrantedAuthority>>()
     @Throws(IOException::class, JsonProcessingException::class)
     override fun deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): List<GrantedAuthority> {
         val nameList = jsonParser.readValueAs(List::class.java)
-        val authority  = nameList.map { name -> SimpleGrantedAuthority(name.toString()) }
+        val authority = nameList.map { name -> SimpleGrantedAuthority(name.toString()) }
         return authority
     }
 
@@ -94,9 +94,10 @@ class StringToAuthorityDeSerializer : JsonDeserializer<List<GrantedAuthority>>()
 
 class UndUserDeserilaizer : JsonDeserializer<UndUserDetails>() {
     @Throws(IOException::class, JsonProcessingException::class)
-    override fun deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext):UndUserDetails {
+    override fun deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): UndUserDetails {
         val userDetailsNode = jsonParser.codec.readTree<TreeNode>(jsonParser)
         //val nameList = jsonParser.readValueAs(List::class.java)
+        val id = userDetailsNode.get("id").toString().toLong()
         val username = userDetailsNode.get("username").toString()
         val name = userDetailsNode.get("name").toString()
         val firstname = userDetailsNode.get("firstname").toString()
@@ -105,14 +106,18 @@ class UndUserDeserilaizer : JsonDeserializer<UndUserDetails>() {
         val clientId = userDetailsNode.get("clientId").toString().toLong()
         val enable = userDetailsNode.get("enabled").numberType()
         val authoritiesNode = userDetailsNode.get("authorities")
-        val authorities =  if (authoritiesNode != null && authoritiesNode is ArrayNode) {
-                authoritiesNode.map { t ->
 
-                    SimpleGrantedAuthority(t.get("authority").asText())
-                }
-            } else arrayListOf<SimpleGrantedAuthority>()
-        val user = UndUserDetails(
-                id = 1L,
+        val authorities = if (authoritiesNode != null && authoritiesNode is ArrayNode) {
+            authoritiesNode.map { t ->
+
+                SimpleGrantedAuthority(t.get("authority").asText())
+            }
+        } else {
+            arrayListOf()
+        }
+
+        return  UndUserDetails(
+                id = id,
                 username = username,
                 secret = "secret",
                 key = "key",
@@ -120,7 +125,6 @@ class UndUserDeserilaizer : JsonDeserializer<UndUserDetails>() {
                 clientId = clientId,
                 authorities = authorities
         )
-        return user
     }
 }
 
