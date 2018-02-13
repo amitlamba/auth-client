@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        kotlinVersion = '1.1.60'
-        springBootVersion = '2.0.0.M6'
+        kotlinVersion = '1.2.10'
+        springBootVersion = '2.0.0.M7'
     }
     repositories {
         mavenCentral()
@@ -41,17 +41,18 @@ repositories {
 
 
 ext {
-    springCloudVersion = 'Finchley.M4'
+    springCloudVersion = 'Finchley.M6'
 }
 
 dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-openfeign')
-    compile("org.springframework.boot:spring-boot-starter-security:$springBootVersion")
-    compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
-    compile("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
-    compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion")
-    testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
-    testCompile("org.springframework.security:spring-security-test:5.0.0.RC1")
+    compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+    compile("org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}")
+    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    testCompile("org.springframework.security:spring-security-test:5.0.1.RELEASE")
     testCompile group: 'com.nhaarman', name: 'mockito-kotlin', version: '1.5.0'
     testCompile 'org.mockito:mockito-core:1.+'
 }
