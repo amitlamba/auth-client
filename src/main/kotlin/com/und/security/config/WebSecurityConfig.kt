@@ -79,6 +79,8 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
                         "/login",
                         "/register",
                         "/health",
+                        "/segment",
+                        "/location",
                         "/info"
                 ).permitAll()
                 .antMatchers("/auth/**").permitAll()
