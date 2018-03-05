@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod
 interface AuthenticationServiceClient {
 
     @RequestMapping(method = arrayOf(RequestMethod.POST), value = "/auth", consumes = arrayOf("application/json"))
-    fun authenticate(authenticationRequest: AuthenticationRequest): Response<UndUserDetails>
+    fun authenticate(authenticationRequest: AuthenticationRequest): Response<*>
 
     @RequestMapping(method = arrayOf(RequestMethod.GET), value = "/auth/validate/{token}/", consumes = arrayOf("application/json"))
     fun validateToken(@PathVariable("token") token: String): Response<UndUserDetails>

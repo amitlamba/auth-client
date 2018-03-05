@@ -99,7 +99,7 @@ class UndUserDeserilaizer : JsonDeserializer<UndUserDetails>() {
         //val nameList = jsonParser.readValueAs(List::class.java)
         val id = userDetailsNode.get("id").toString().toLong()
         val username = userDetailsNode.get("username").toString()
-        val name = userDetailsNode.get("name").toString()
+        //val name = userDetailsNode.get("name").toString()
         val firstname = userDetailsNode.get("firstname").toString()
         val lastname = userDetailsNode.get("lastname").toString()
         val email = userDetailsNode.get("email").toString()

@@ -10,7 +10,7 @@ class UndUserDetailsDeSerializationTest {
 
     @Test
             //@Throws(Exception::class)
-    fun deSearilizeCompleteJson() {
+    fun deSerializeCompleteJson() {
 
         val json = """
  {
